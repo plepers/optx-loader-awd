@@ -40,8 +40,16 @@ describe( "load mesh", function(){
 
     Loader.init( optx )
 
+
+    var view = new optx.GLView( 128, 128 );
+    var scene = new optx.Scene( view.mainBuffer );
+
+
     var l = new Loader( awdBuf );
-    l.load();
+    l.load( scene );
+
+    //console.log( l._byName['lens body (1)'] )
+
 
 
 
