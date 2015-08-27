@@ -1,5 +1,10 @@
 var path = require('path');
 
+var derequire = require( 'derequire/plugin' )
+var dereqFunc = function(b){
+  derequire( b );
+}
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -41,12 +46,19 @@ module.exports = function(grunt) {
         options: {
           browserifyOptions: {
             paths:[ '.tmp/<%= pkg.name %>' ],
-            standalone: 'OptxLoaderAwd'
+            standalone: 'OptxLoaderAwd',
+            plugin: [
+              dereqFunc,
+            ]
           }
         }
       },
 
       test: {
+        // options: {
+        //   external : ['optx-loader-awd', 'optx' ],
+        // },
+
         files:{
           '.tmp/test/tests.js': ['test/spec/*Test.js'],
         }
@@ -66,7 +78,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: ['src/**/*.js'],
-        tasks: ['browserify:lib'],
+        tasks: ['browserify:lib', 'copy:nodelibs'],
         options: {
           spawn: false,
         }
@@ -74,8 +86,8 @@ module.exports = function(grunt) {
 
 
       karma:{
-        files: [ 'test/**/*.js'],
-        tasks: [ 'browserify:test', 'karma:dev:run'],
+        files: [ 'src/**/*.js', 'test/**/*.js'],
+        tasks: [ 'browserify:lib', 'copy:nodelibs', 'browserify:test', 'karma:dev:run'],
         options: {
           spawn: false,
         }
@@ -96,21 +108,6 @@ module.exports = function(grunt) {
     mochaTest : {
       node:{
         src:['test/**/*_Test.js']
-      }
-    },
-
-
-
-
-    uglify:
-    {
-      options: {
-        //mangle: false
-      },
-      build: {
-        files: {
-          'lib/optx.min.js': ['lib/optx.js']
-        }
       }
     }
 
@@ -142,9 +139,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'build',
+    'copy:nodelibs',
     'browserify:test',
     'karma:dev:start',
-    'watch'
+    'watch:karma'
   ]);
 
 

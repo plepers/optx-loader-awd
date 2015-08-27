@@ -16,10 +16,13 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       {pattern: 'test/samples/*.awd.gz', included: false, served: true },
-      //'node_modules/optx/build/optx.js',
-      'build/optx-loader-awd.js',
+      // 'node_modules/optx/build/optx.js',
+      // 'lib/optx-loader-awd.js',
       '.tmp/test/tests.js'
     ],
+    proxies: {
+      "/test/samples/": "/base/test/samples/"
+    },
 
 
     // list of files to exclude
