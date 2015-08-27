@@ -15,6 +15,7 @@ describe( "load mesh", function(){
 
   var awdBuf;
 
+
   before(function( done ){
 
     fs.readFile( './test/samples/test_optx_material.awd.gz', function (err, data) {

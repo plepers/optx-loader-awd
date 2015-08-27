@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     browserify: {
       lib: {
         src: ['src/index.js'],
-        dest: 'build/<%= pkg.name %>.js',
+        dest: 'lib/<%= pkg.name %>.js',
         options: {
           browserifyOptions: {
             paths:[ '.tmp/<%= pkg.name %>' ],
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
     copy: {
       nodelibs: {
         files: [
-          {expand: true, cwd: 'build/', src: ['*'], dest: 'node_modules/', filter: 'isFile'},
+          {expand: true, cwd: 'lib/', src: ['*'], dest: 'node_modules/', filter: 'isFile'},
         ],
       },
     },
@@ -109,7 +109,7 @@ module.exports = function(grunt) {
       },
       build: {
         files: {
-          'build/optx.min.js': ['build/optx.js']
+          'lib/optx.min.js': ['lib/optx.js']
         }
       }
     }

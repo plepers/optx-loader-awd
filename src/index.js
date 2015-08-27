@@ -35,6 +35,7 @@ Loader.prototype =
     for( var i = 0; i< structs.length ; i++ ) {
       var struct = structs[i];
       console.log( struct.name )
+
     }
 
   }
