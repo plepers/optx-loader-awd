@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     browserify: {
       lib: {
         src: ['src/index.js'],
-        dest: 'build/<%= pkg.name %>.js',
+        dest: 'lib/<%= pkg.name %>.js',
         options: {
           browserifyOptions: {
             paths:[ '.tmp/<%= pkg.name %>' ],
@@ -47,6 +47,9 @@ module.exports = function(grunt) {
       },
 
       test: {
+        // options: {
+        //   external : ['optx-loader-awd', 'optx' ],
+        // },
         files:{
           '.tmp/test/tests.js': ['test/spec/*Test.js'],
         }
@@ -57,7 +60,7 @@ module.exports = function(grunt) {
     copy: {
       nodelibs: {
         files: [
-          {expand: true, cwd: 'build/', src: ['*'], dest: 'node_modules/', filter: 'isFile'},
+          {expand: true, cwd: 'lib/', src: ['*'], dest: 'node_modules/', filter: 'isFile'},
         ],
       },
     },
@@ -66,7 +69,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: ['src/**/*.js'],
-        tasks: ['browserify:lib'],
+        tasks: ['browserify:lib', 'copy:nodelibs'],
         options: {
           spawn: false,
         }
@@ -104,14 +107,7 @@ module.exports = function(grunt) {
 
     uglify:
     {
-      options: {
-        //mangle: false
-      },
-      build: {
-        files: {
-          'build/optx.min.js': ['build/optx.js']
-        }
-      }
+
     }
 
 

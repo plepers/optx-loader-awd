@@ -7,7 +7,6 @@ var butils = require( '../utils/buffer_utils');
 
 var optx = require( 'optx' )
 
-
 var Loader = require( 'optx-loader-awd' );
 
 
@@ -17,7 +16,7 @@ describe( "load mesh", function(){
 
   before(function( done ){
 
-    fs.readFile( './test/samples/test_optx_material.awd.gz', function (err, data) {
+    fs.readFile( './test/samples/lens.awd.gz', function (err, data) {
       if (err) {
         done( err );
         return;
@@ -25,25 +24,29 @@ describe( "load mesh", function(){
 
       awdBuf = butils.toArrayBuffer( data );
       done();
+
     });
 
   });
 
 
-  it( "should fullfill a standard default gl context state", function(){
 
+
+  it( "should fullfill a standard default gl context state", function(){
 
     expect( Loader ).to.be.ok();
 
     console.log( Loader )
-
-
 
     Loader.init( optx )
 
     var l = new Loader( awdBuf );
     l.load();
 
+
+
   });
 
 });
+
+

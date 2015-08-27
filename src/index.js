@@ -16,7 +16,7 @@ function Loader( buffer ){
   this.basedir = './';
   this.awd = null;
 
-  this._elements = {}
+  this._lib = {}
 }
 
 Loader.prototype =
@@ -34,7 +34,7 @@ Loader.prototype =
 
     for( var i = 0; i< structs.length ; i++ ) {
       var struct = structs[i];
-      console.log( struct.name )
+      console.log( struct.name, struct.chunk, struct.type )
     }
 
   }
