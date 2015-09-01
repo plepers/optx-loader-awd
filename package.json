@@ -3,6 +3,10 @@
   "version": "0.1.1",
   "description": "AWD loader for optx",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plepers/optx-loader-awd.git"
+  },
   "scripts": {
     "test": "grunt test"
   },
