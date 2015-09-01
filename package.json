@@ -1,6 +1,6 @@
 {
   "name": "optx-loader-awd",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "AWD loader for optx",
   "main": "index.js",
   "scripts": {
