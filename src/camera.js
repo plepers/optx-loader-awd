@@ -30,6 +30,8 @@ module.exports = function( optx ){
 
     camera.post = lib.resolve( awdObj.post )
 
+    scene.camera = camera
+
     return camera;
   }
 

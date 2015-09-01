@@ -88,6 +88,7 @@ function Loader( buffer ){
   }
 
   this._lib = _lib;
+  this._lib.lights = []
   this._byName = {}
 
 }
@@ -120,6 +121,14 @@ Loader.prototype =
       }
 
     }
+
+
+
+    // todo remove this later
+    var lights = this._lib.lights
+    scene.lights = new optx.Lights();
+    scene.lights.build(lights);
+    scene.pipeline._uniforms.addSubProvider(scene.lights._uniforms);
 
   }
 };

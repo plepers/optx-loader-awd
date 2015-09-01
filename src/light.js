@@ -23,6 +23,8 @@ module.exports = function( optx ){
 
     light.color.set( awdObj.color )
 
+    lib.lights.push( light )
+
     return light;
   }
 
