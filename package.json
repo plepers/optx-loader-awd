@@ -1,8 +1,8 @@
 {
   "name": "optx-loader-awd",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "AWD loader for optx",
-  "main": "index.js",
+  "main": "lib/optx-loader-awd.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/plepers/optx-loader-awd.git"
