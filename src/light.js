@@ -2,7 +2,7 @@ var setupObj3D = require( './utils').setupObj3D;
 
 module.exports = function( optx ){
 
-  return function handleStruct( awdObj, lib, scene ){
+  return function handleStruct( awdObj, lib, scene,rscene ){
 
     var gl = scene.gl;
 
@@ -12,7 +12,6 @@ module.exports = function( optx ){
       light = new optx.Light.SpotLight();
     }
 
-    setupObj3D( light, awdObj, lib );
 
     light.radius        = awdObj.radius
     light.falloffCurve  = awdObj.falloffCurve
@@ -24,6 +23,8 @@ module.exports = function( optx ){
     light.color.set( awdObj.color )
 
     lib.lights.push( light )
+
+    setupObj3D( light, awdObj, lib, rscene );
 
     return light;
   }

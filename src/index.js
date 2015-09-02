@@ -89,6 +89,7 @@ function Loader( buffer ){
 
   this._lib = _lib;
   this._lib.lights = []
+  this._lib.meshes = []
   this._byName = {}
 
 }
@@ -98,6 +99,8 @@ Loader.prototype =
 
   load : function( scene )
   {
+    var EXT = awdLib_optx.extInfos;
+
     this.awd = new awdLib.awd();
     this.awd.addExtension( awdLib_optx.ext.getExtension() );
 
@@ -108,14 +111,22 @@ Loader.prototype =
 
     var structs = this.awd._elements;
 
+    var container = new optx.Object3D()
+    container.gl = scene.gl
+
     for( var i = 0; i< structs.length ; i++ ) {
       var struct = structs[i];
 
-      console.log( struct.name, struct.nsUri, struct.type )
+      if( struct.type !== EXT.OPTX_LIGHT      &&
+          struct.type !== EXT.OPTX_POST       &&
+          struct.type !== EXT.OPTX_ENV        &&
+          struct.type !== EXT.OPTX_TEXTURE    &&
+          struct.type !== EXT.OPTX_COMPOSITE_TEXTURE )
+        continue
 
       var handler = getHandler( struct.type, struct.nsUri );
       if( handler ){
-        var optxObj = handler( struct, this._lib, scene );
+        var optxObj = handler( struct, this._lib, container, scene );
         this._lib[struct.id ] = optxObj;
         this._byName[struct.name] = optxObj;
       }
@@ -124,11 +135,49 @@ Loader.prototype =
 
 
 
+
+
     // todo remove this later
     var lights = this._lib.lights
+    // for( var i=0;i< lights.length; i++ ){
+    //   scene.add( lights[i] )
+    // }
+
+
+
     scene.lights = new optx.Lights();
     scene.lights.build(lights);
+    scene.pipeline._uniforms.add(scene.postRender.uShadowKernelRotation);
     scene.pipeline._uniforms.addSubProvider(scene.lights._uniforms);
+
+
+    for( var i = 0; i< structs.length ; i++ ) {
+      var struct = structs[i];
+
+      if( struct.type == EXT.OPTX_LIGHT ||
+          struct.type == EXT.OPTX_POST ||
+          struct.type == EXT.OPTX_ENV ||
+          struct.type == EXT.OPTX_TEXTURE ||
+          struct.type == EXT.OPTX_COMPOSITE_TEXTURE
+          )
+        continue
+
+      var handler = getHandler( struct.type, struct.nsUri );
+      if( handler ){
+        var optxObj = handler( struct, this._lib, container, scene );
+        this._lib[struct.id ] = optxObj;
+        this._byName[struct.name] = optxObj;
+      }
+
+    }
+
+    scene.bounds.fromMeshes( this._lib.meshes );
+
+    // var dUseTBSH = new optx.Uniform.define('USE_TB_SH');
+    // dUseTBSH.def();
+    // scene.pipeline._uniforms.add(dUseTBSH);
+
+    scene.add( container )
 
   }
 };

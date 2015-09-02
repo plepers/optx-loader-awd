@@ -27,7 +27,7 @@
     "mocha": "^2.2.5"
   },
   "dependencies": {
-    "awdlib": "^0.8.16"
+    "awdlib": "^0.8.18"
   },
   "browser": {
     "fs": "./test/utils/fs-browser.js"

@@ -22,10 +22,14 @@ module.exports = function( optx ){
     if( infos.height )
       params.height = infos.height
 
+    params.mipmap = true
+    params.aniso = gl.quality.aniso
+
 
     if( fileData ){
       var data = new Uint8Array( fileData.data.buffer, fileData.data.byteOffset, fileData.data.byteLength )
       fileData.data = data;
+      console.log( uri )
       tex = gl.textureCache.fromData( fileData, params, glFormat );
     }
     else {

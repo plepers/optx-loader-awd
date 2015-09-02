@@ -15,16 +15,17 @@ module.exports = function( optx ){
     mat.name             = awdObj.name
 
     mat.blend            = awdObj.blend
+    mat.castShadows = awdObj.blend !== 'add'
+
     mat.alphaThreshold   = awdObj.alphaThreshold
 
-    if( awdObj.dithering ) {
-      mat.dithering        = awdObj.dithering
-      mat.fresnel.fromArray( awdObj.fresnel )
-      mat.horizonOcclude   = awdObj.horizonOcclude
-      mat.vertexColor      = awdObj.vertexColor
-      mat.vertexColorAlpha = awdObj.vertexColorAlpha
-      mat.vertexColorSRGB  = awdObj.vertexColorSRGB
-    }
+    mat.dithering        = awdObj.dithering
+    mat.fresnel.fromArray( awdObj.fresnel )
+    mat.horizonOcclude   = awdObj.horizonOcclude
+    mat.vertexColor      = awdObj.vertexColor
+    mat.vertexColorAlpha = awdObj.vertexColorAlpha
+    mat.vertexColorSRGB  = awdObj.vertexColorSRGB
+
 
     if( awdObj.aniso ) {
       mat.aniso            = awdObj.aniso
@@ -49,18 +50,21 @@ module.exports = function( optx ){
 
 
     mat.albedo       = lib.resolve( awdObj.textures.albedo       );
-    mat.reflectivity = lib.resolve( awdObj.textures.reflectivity );
+    mat.specular     = lib.resolve( awdObj.textures.reflectivity );
     mat.normal       = lib.resolve( awdObj.textures.normal       );
     mat.subsurface   = lib.resolve( awdObj.textures.subsurface   );
     mat.agt          = lib.resolve( awdObj.textures.agt          );
 
 
-    mat.albedoColor       = hexToRGB( awdObj.colors.albedo       );
-    mat.reflectivityColor = hexToRGB( awdObj.colors.reflectivity );
-    mat.normalColor       = hexToRGB( awdObj.colors.normal       );
-    mat.subsurfaceColor   = hexToRGB( awdObj.colors.subsurface   );
-    mat.agtColor          = hexToRGB( awdObj.colors.agt          );
+    mat.albedoColor       = awdObj.colors.albedo      ;
+    mat.specularColor     = awdObj.colors.reflectivity;
+    mat.normalColor       = awdObj.colors.normal      ;
+    mat.subsurfaceColor   = awdObj.colors.subsurface  ;
+    mat.agtColor          = awdObj.colors.agt         ;
 
+
+    var hasAGT = !! awdObj.textures.agt
+    mat.agtUsage( hasAGT, hasAGT, hasAGT );
     return mat;
   }
 

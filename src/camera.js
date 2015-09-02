@@ -2,7 +2,7 @@ var setupObj3D = require( './utils').setupObj3D;
 
 module.exports = function( optx ){
 
-  return function handleStruct( awdObj, lib, scene ){
+  return function handleStruct( awdObj, lib, scene, rscene ){
 
     var gl = scene.gl;
 
@@ -23,14 +23,14 @@ module.exports = function( optx ){
     }
 
 
-    setupObj3D( camera, awdObj, lib );
+    setupObj3D( camera, awdObj, lib, scene );
 
     camera.nearPlane = awdObj.near
     camera.farPlane  = awdObj.far
 
     camera.post = lib.resolve( awdObj.post )
 
-    scene.camera = camera
+    rscene.camera = camera
 
     return camera;
   }

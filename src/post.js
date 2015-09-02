@@ -91,7 +91,7 @@ module.exports = function( optx ){
   }
 
 
-  return function handleStruct( awdObj, lib, scene ){
+  return function handleStruct( awdObj, lib, scene, rscene ){
 
     var gl = scene.gl;
 
@@ -101,11 +101,12 @@ module.exports = function( optx ){
         effects = [];
 
     for( var i=0; i< awdEffects.length; i++ ){
-      effects.push( getEffect( awdEffects[i], data ) )
+      //effects.push( getEffect( awdEffects[i], data ) )
     }
 
     var post = new optx.Post( effects, true )
 
+    rscene.postRender = post;
     return post;
   }
 

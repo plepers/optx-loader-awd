@@ -9,8 +9,8 @@ module.exports = {
   },
 
 
-  setupObj3D : function( optxObj, awdObj, lib ){
-    optxObj.transform.set( awdObj.matrix )
+  setupObj3D : function( optxObj, awdObj, lib, scene ){
+    optxObj.transform.set( awdObj.matrix.data )
     optxObj.name = awdObj.name;
 
     // todo pivot?
@@ -18,6 +18,8 @@ module.exports = {
     if( awdObj.parent ){
       var op = lib.resolve( awdObj.parent )
       op.add( optxObj )
+    } else {
+      scene.add( optxObj )
     }
   }
 

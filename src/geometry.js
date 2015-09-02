@@ -36,6 +36,9 @@ module.exports = function( optx, awdlib ){
         oVBuffer.addAttribute( oAttrib );
       }
 
+      oVBuffer.setData(vbuffer.data);
+      oVBuffer.allocate(gl);
+
       geom.addVertexBuffer( oVBuffer );
 
     }
@@ -66,6 +69,11 @@ module.exports = function( optx, awdlib ){
 
     }
 
+    // todo handle this
+    geom.bounds = {
+      min: optx.Vect.create(-10, -10, -10, 1),
+      max: optx.Vect.create(10, 10, 10, 1)
+    }
     return geom;
   }
 

@@ -9,7 +9,7 @@ module.exports = function( optx ){
     var mesh = new optx.Mesh();
     var geom = lib.resolve( awdObj.geometry       );
 
-    setupObj3D( mesh, awdObj, lib );
+    setupObj3D( mesh, awdObj, lib, scene );
 
     mesh.geometry = geom;
 
@@ -32,6 +32,8 @@ module.exports = function( optx ){
       );
 
     }
+
+    lib.meshes.push( mesh )
 
     return mesh;
   }
