@@ -63,9 +63,10 @@ module.exports = function( optx ){
 
     else if( effect._id === POST_CONTRAST   )
     {
+      console.log( effect )
       return new Contrast(
-        effect.getBrightness(),
         effect.getContrast(),
+        effect.getBrightness(),
         effect.getBias()
       )
     }
@@ -80,12 +81,12 @@ module.exports = function( optx ){
 
     else if( effect._id === POST_REINHARD   )
     {
-      return new TMReinhard()
+      //return new TMReinhard()
     }
 
     else if( effect._id === POST_HEJL       )
     {
-      return new TMHejl()
+      //return new TMHejl()
     }
 
   }
@@ -101,7 +102,9 @@ module.exports = function( optx ){
         effects = [];
 
     for( var i=0; i< awdEffects.length; i++ ){
-      //effects.push( getEffect( awdEffects[i], data ) )
+      var effect = getEffect( awdEffects[i], data )
+      if( effect )
+        effects.push( effect )
     }
 
     var post = new optx.Post( effects, true )
