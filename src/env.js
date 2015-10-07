@@ -22,6 +22,7 @@ module.exports = function( optx ){
     setupObj3D( env, awdObj, lib, rscene )
 
     env.envMap     = lib.resolve( awdObj.envMap )
+    env.envMap.mipmap = false
     var sh = awdObj.shCoefs
 
     if( sh.length === 27 ){
