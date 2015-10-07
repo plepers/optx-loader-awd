@@ -81,12 +81,12 @@ module.exports = function( optx ){
 
     else if( effect._id === POST_REINHARD   )
     {
-      //return new TMReinhard()
+      return new TMReinhard()
     }
 
     else if( effect._id === POST_HEJL       )
     {
-      //return new TMHejl()
+      return new TMHejl()
     }
 
   }
