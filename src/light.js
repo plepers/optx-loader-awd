@@ -6,7 +6,7 @@ module.exports = function( optx ){
 
     var gl = scene.gl;
 
-    if( awdObj.spotAngle == 0 ){
+    if( awdObj.spotAngle <= 0 ){
       light = new optx.Light.DirectionalLight();
     } else {
       light = new optx.Light.SpotLight();
