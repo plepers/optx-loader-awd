@@ -91,6 +91,7 @@ function Loader( buffer ){
   this._lib.lights = []
   this._lib.meshes = []
   this._byName = {}
+  this._objects = []
 
 }
 
@@ -112,6 +113,7 @@ Loader.prototype =
     var structs = this.awd._elements;
 
     var container = new optx.Object3D()
+    this.container = container;
     container.gl = scene.gl
 
     for( var i = 0; i< structs.length ; i++ ) {
@@ -129,6 +131,7 @@ Loader.prototype =
         var optxObj = handler( struct, this._lib, container, scene );
         this._lib[struct.id ] = optxObj;
         this._byName[struct.name] = optxObj;
+        this._objects.push( optxObj )
       }
 
     }
@@ -167,6 +170,7 @@ Loader.prototype =
         var optxObj = handler( struct, this._lib, container, scene );
         this._lib[struct.id ] = optxObj;
         this._byName[struct.name] = optxObj;
+        this._objects.push( optxObj )
       }
 
     }
@@ -179,7 +183,16 @@ Loader.prototype =
 
     scene.add( container )
 
+  },
+
+  getObjectByName : function( name ){
+    return this._byName[name]
+  },
+
+  getObjects : function(){
+    return this._objects
   }
+
 };
 
 Loader.init = function( pOptx ){
